@@ -17,7 +17,30 @@ fn main() {
         }
         sum += line.parse::<i32>().unwrap();
     }
-    println!("{}", max)
+    println!("Day1/1 = {}", max);
+    println!("Day1/2 = {}", solve_part_two());
+}
+
+fn solve_part_two() -> i32 {
+    let input: Vec<String> = read_input_for_day();
+    let mut sums: Vec<i32> = Vec::new();
+    let mut max = 0;
+    let mut sum = 0;
+    for line in input {
+        if line == "" {
+            sums.push(sum);
+            sum = 0;
+            continue
+            }
+        sum += line.parse::<i32>().unwrap();
+    }
+    sums.sort();
+    println!("{:?}", sums);
+    println!("{:?}", sums[sums.len() - 1]);
+    println!("{:?}", sums[sums.len() - 2]);
+    println!("{:?}", sums[sums.len() - 3]);
+
+    return sums[sums.len() - 1] + sums[sums.len() - 2] + sums[sums.len() - 3]
 }
 
 fn read_input_for_day() -> Vec<String> {
