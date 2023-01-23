@@ -13,7 +13,7 @@ fn solve_part_1() -> u32 {
     let input = read_input_for_day();
     let mut sum: u32 = 0;
     for line in input {
-        let (split1, split2) = line.split_at(line.len()/2);
+        let (split1, split2) = line.split_at(line.len() / 2);
         let mut already_checked_chars = Vec::new();
         for i in split1.chars() {
             if already_checked_chars.contains(&i) {
@@ -25,37 +25,48 @@ fn solve_part_1() -> u32 {
             }
         }
     }
-    return sum
+    return sum;
 }
 
 fn solve_part_2() -> u32 {
     let mut input = read_input_for_day();
-    let mut sum: u32 = 0;
-    let mut temp: Vec<String> = Vec::new();
-        for i in input.len()/3 {
-            temp.push(input.pop().unwrap());
-            let reference = temp.get(0).unwrap();
-            let mut is_badge: bool = false;
-            for line in temp {
-                if line.contains(i) {
-                    is_badge = true;
-                    continue
+    let mut sum = 0;
+    let mut temp_vec: Vec<String> = Vec::new();
+    let mut reference_line: String;
+    for n in 1..=input.len() {
+        temp_vec.push(input.pop().unwrap());
+        if temp_vec.len() == 3 {
+            reference_line = temp_vec.pop().unwrap();
+            println!("{:?}", temp_vec);
+            println!("{}", reference_line);
+            let mut temp: i8 = 0;
+            for l in reference_line.chars() {
+                for line in &temp_vec {
+                    if line.contains(l) {
+                        println!("Line = {}, l  = {}", line, l);
+                        temp = temp + 1;
+                    }
                 }
-                is_badge = false
+                if temp == 2 {
+                    println!("The winner is {}", l);
+                    sum += get_int_of_char(l);
+                    temp = 0;
+                    break
+                }
+                temp = 0;
             }
-            if is_badge {
-                sum += get_int_of_char(i);
-            }
+            temp_vec.clear();
         }
-    return sum
-
+    }
+    return sum;
 }
+
 fn get_int_of_char(input: char) -> u32 {
     let value = input as u32;
     if (input as u8).is_ascii_lowercase() {
-        return value - 96
+        return value - 96;
     }
-    return value - 64 + 26
+    return value - 64 + 26;
 }
 
 fn read_input_for_day() -> Vec<String> {
@@ -69,6 +80,7 @@ fn read_input_for_day() -> Vec<String> {
     }
     input
 }
+
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
     where P: AsRef<Path>, {
     let file = File::open(filename)?;
