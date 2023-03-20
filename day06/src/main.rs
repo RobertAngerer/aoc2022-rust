@@ -11,12 +11,12 @@ fn main() {
 }
 
 fn solve02(input: &str) {
-    let mut first_14 = &input[1520..];
-    println!("{:?}", first_14);
+    let mut first_14 = &input[1534..1548];
+    println!("{:?}, {:?}", first_14, first_14.len());
     let mut counter = 1534;
-    let start_string = &input[13..];
+    let start_string = &input[1548..];
     for i in start_string.chars() {
-        println!("{:?}, {:?}", first_14, i);
+        // println!("{:?}, {:?}", first_14, i);
         if first_14.contains(i) {
             first_14 = &input[counter-12..counter+1];
             counter +=1
@@ -35,11 +35,11 @@ fn solve02(input: &str) {
 
 fn solve01(input: &str) {
     let mut first_three = &input[..3];
-    println!("{:?}", first_three);
+    // println!("{:?}", first_three);
     let mut counter = 3;
     let start_string = &input[3..];
     for i in start_string.chars() {
-        println!("{:?}, {:?}", first_three, i);
+        // println!("{:?}, {:?}", first_three, i);
         if first_three.contains(i) {
             first_three = &input[counter-2..counter+1];
             counter +=1
@@ -49,8 +49,8 @@ fn solve01(input: &str) {
             counter +=1
         }
         else {
-            println!("{:?}, {:?}", first_three, i);
-            println!("{:?}", counter + 1);
+            // println!("{:?}, {:?}", first_three, i);
+            // println!("{:?}", counter + 1);
             break
         }
     }
@@ -69,11 +69,9 @@ fn contains_duplicates(input: &str) -> bool {
     false
 }
 
-
-
 fn read_file() -> String {
     let contents = fs::read_to_string("input06.txt").expect("should");
-    println!("With text:\n{contents}");
+    // println!("With text:\n{contents}");
     return contents
 }
 
